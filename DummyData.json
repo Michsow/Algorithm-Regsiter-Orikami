@@ -1,0 +1,47 @@
+[
+  {
+    "name": "EndoRisk",
+    "purpose": "Risicostratificatie voor chirurgische planning bij endometriumcarcinoom",
+    "version": "v2.1.0",
+    "status": "active",
+    "lastUpdated": "2026-02-15",
+    "owner": "LUMC Oncology",
+    "runsThisMonth": 1247
+  },
+  {
+    "name": "Cardiovascular Risk Score",
+    "purpose": "Predict 10-year cardiovascular disease risk in adults",
+    "version": "v3.0.1",
+    "status": "active",
+    "lastUpdated": "2026-01-10",
+    "owner": "Cardiology Department",
+    "runsThisMonth": 892
+  },
+  {
+    "name": "Diabetes Risk Predictor",
+    "purpose": "Early identification of high-risk individuals for preventive interventions",
+    "version": "v1.8.2",
+    "status": "active",
+    "lastUpdated": "2025-11-20",
+    "owner": "Amsterdam UMC",
+    "runsThisMonth": 634
+  },
+  {
+    "name": "Sepsis Early Warning",
+    "purpose": "Early detection of sepsis in hospitalized patients",
+    "version": "v3.0.1",
+    "status": "active",
+    "lastUpdated": "2026-03-01",
+    "owner": "Erasmus MC",
+    "runsThisMonth": 2103
+  },
+  {
+    "name": "Acute Kidney Injury Predictor",
+    "purpose": "Risk stratification for AKI prevention in ICU settings",
+    "version": "v2.3.0",
+    "status": "active",
+    "lastUpdated": "2025-12-05",
+    "owner": "Radboud UMC",
+    "runsThisMonth": 421
+  }
+]

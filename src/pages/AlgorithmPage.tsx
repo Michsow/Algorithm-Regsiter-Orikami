@@ -1,30 +1,55 @@
+
+import { useState, useEffect } from "react";
 import "./AlgorithmPage.css";
+import AlgorithmAdd from "../components/AlgorithmAdd";
+import AlgorithmEdit from "../components/AlgorithmEdit";
+
 
 export default function Algorithms() {
+  const [popupMode, setPopupMode] = useState<"add" | "edit" | null>(null);
+  const [algorithms, setAlgorithms] = useState<any[]>([]);
+
+    useEffect(() => {
+      fetch("http://localhost:5000/algorithms")
+        .then((res) => res.json())
+        .then((data) => setAlgorithms(data));
+    }, []);
+/*run with: node server.js and npm run admin*/
   return (
     <div className="algorithms-page">
       {/* Header */}
       <div className="alg-header">
         <h1>Algorithms</h1>
-        <button className="add-btn">+ Add algorithm</button>
+        <button className="add-btn" onClick={() => setPopupMode("add")}>
+          + Add algorithm
+        </button>
       </div>
 
       {/* Search */}
-      <div className="search-bar">search button</div>
-
-      {/* Stats cards */}
-      <div className="stats">
-        <div className="card">algorithm total amount</div>
-        <div className="card">algorithm active amount</div>
-        <div className="card">public accessible algorithms</div>
-        <div className="card">algorithms categories</div>
+      <div className="search-container">
+        <input type="text" placeholder="Search..." />
+        <button>Search</button>
       </div>
 
-      {/* Table section */}
-      <div className="table-section">
-        <h3>algorithm list</h3>
+      {/* Stats */}
+      <div className="stats">
+        {[
+          "algorithm total amount",
+          "algorithm active amount",
+          "public accessible algorithms",
+          "algorithms categories",
+        ].map((label, i) => (
+          <div key={i} className="card">
+            <div className="card-number">--</div>
+            <div className="card-label">{label}</div>
+          </div>
+        ))}
+      </div>
 
-        {/* Table header */}
+      {/* Table */}
+      <div className="table-section">
+        <h3>Algorithm List</h3>
+
         <div className="table-header">
           <span>ID</span>
           <span>name</span>
@@ -33,21 +58,40 @@ export default function Algorithms() {
           <span>status</span>
           <span>last updated</span>
           <span>owner</span>
-          <span>runs (this month)</span>
+          <span>runs</span>
           <span></span>
         </div>
 
-        {/* Rows */}
-        <div className="table-row">
-          <div className="row-content"></div>
-          <button className="edit-btn">edit</button>
-        </div>
+        {/* TODO: Replace hardcoded [1, 2] with dynamic data when available */}
+        {algorithms.map((algo, index) => (
+            <div key={index} className="table-row">
+              <div>{index + 1}</div>
+              <div>{algo.name}</div>
+              <div>{algo.purpose}</div>
+              <div>{algo.version}</div>
+              <div>{algo.status}</div>
+              <div>{algo.lastUpdated}</div>
+              <div>{algo.owner}</div>
+              <div>{algo.runsThisMonth}</div>
 
-        <div className="table-row">
-          <div className="row-content"></div>
-          <button className="edit-btn">edit</button>
-        </div>
+              <button
+                className="edit-btn"
+                onClick={() => setPopupMode("edit")}
+              >
+                edit
+              </button>
+            </div>
+          ))}
       </div>
+
+      {/* Popup */}
+      {popupMode === "add" && (
+  <AlgorithmAdd onClose={() => setPopupMode(null)} />
+)}
+
+{popupMode === "edit" && (
+  <AlgorithmEdit onClose={() => setPopupMode(null)} />
+)}
     </div>
   );
 }

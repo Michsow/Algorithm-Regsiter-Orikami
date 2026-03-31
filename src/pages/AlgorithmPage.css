@@ -73,3 +73,117 @@
   border: none;
   cursor: pointer;
 }
+/* Search */
+.search-container {
+  display: flex;
+  gap: 10px;
+}
+
+.search-container input {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #aaa;
+}
+
+.search-container button {
+  padding: 10px 15px;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+/* Cards */
+.card {
+  background: #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-number {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-label {
+  font-size: 12px;
+}
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  min-width: 300px;
+}
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: #eee;
+  padding: 25px;
+  border-radius: 8px;
+  min-width: 500px;
+}
+
+/* Form layout like screenshot */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.form-grid label {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-grid input,
+.form-grid select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.submit-btn {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+}
