@@ -5,6 +5,7 @@ import AlgorithmAdd from "../components/AlgorithmAdd";
 import AlgorithmEdit from "../components/AlgorithmEdit";
 
 interface Algorithm {
+  _id?: string;
   name: string;
   purpose: string;
   version: string;
@@ -17,12 +18,17 @@ interface Algorithm {
 export default function Algorithms() {
   const [popupMode, setPopupMode] = useState<"add" | "edit" | null>(null);
   const [algorithms, setAlgorithms] = useState<Algorithm[]>([]);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<Algorithm | null>(null);
 
-    useEffect(() => {
-      fetch("http://localhost:5000/algorithms")
-        .then((res) => res.json())
-        .then((data) => setAlgorithms(data));
-    }, []);
+  const fetchAlgorithms = () => {
+    fetch("http://localhost:5000/algorithms")
+      .then((res) => res.json())
+      .then((data) => setAlgorithms(data));
+  };
+
+  useEffect(() => {
+    fetchAlgorithms();
+  }, []);
 /*run with: node server.js and npm run admin*/
   return (
     <div className="algorithms-page">
@@ -85,7 +91,10 @@ export default function Algorithms() {
               <div>
                 <button
                   className="edit-btn"
-                  onClick={() => setPopupMode("edit")}
+                  onClick={() => {
+                    setSelectedAlgorithm(algo);
+                    setPopupMode("edit");
+                  }}
                 >
                   edit
                 </button>
@@ -96,11 +105,25 @@ export default function Algorithms() {
 
           {/* Popup */}
           {popupMode === "add" && (
-      <AlgorithmAdd onClose={() => setPopupMode(null)} />
+      <AlgorithmAdd
+        onClose={() => setPopupMode(null)}
+        onSuccess={() => {
+          setPopupMode(null);
+          fetchAlgorithms();
+        }}
+      />
     )}
 
-    {popupMode === "edit" && (
-      <AlgorithmEdit onClose={() => setPopupMode(null)} />
+    {popupMode === "edit" && selectedAlgorithm && (
+      <AlgorithmEdit
+        algorithm={selectedAlgorithm}
+        onClose={() => setPopupMode(null)}
+        onSuccess={() => {
+          setPopupMode(null);
+          setSelectedAlgorithm(null);
+          fetchAlgorithms();
+        }}
+      />
     )}
     </div>
   );

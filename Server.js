@@ -22,12 +22,54 @@ const Algorithm = mongoose.model("Algorithm", algorithmSchema, "AlgorithmRegiste
 
 app.get("/algorithms", async (req, res) => {
   const data = await Algorithm.find();
-  /*console.log("DATA FROM DB:", data);
-  uncomment the above line to see the data fetched from MongoDB in the server console. 
-  This will help you verify that the data is being retrieved correctly before sending it to the frontend.
-  */
   res.json(data);
 });
 
+app.post("/algorithms", async (req, res) => {
+  try {
+    const body = req.body;
+    const algorithm = new Algorithm({
+      name: body.name,
+      purpose: body.purpose,
+      version: body.version,
+      status: body.status,
+      lastUpdated: body.lastUpdated,
+      owner: body.owner,
+      runsThisMonth: body.runsThisMonth || 0,
+    });
+    const saved = await algorithm.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to create algorithm" });
+  }
+});
+
+app.put("/algorithms/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const updated = await Algorithm.findByIdAndUpdate(
+      id,
+      {
+        name: body.name,
+        purpose: body.purpose,
+        version: body.version,
+        status: body.status,
+        lastUpdated: body.lastUpdated,
+        owner: body.owner,
+        runsThisMonth: body.runsThisMonth || 0,
+      },
+      { returnDocument: 'after' }
+    );
+    if (!updated) {
+      return res.status(404).json({ error: "Algorithm not found" });
+    }
+    res.json(updated);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to update algorithm" });
+  }
+});
 
 app.listen(5000, () => console.log("Server running on port 5000"));
