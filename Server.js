@@ -25,8 +25,7 @@ const patientSchema = new mongoose.Schema({
   dateOfBirth: String,
   gender: String,
   status: String,
-  doctor: String,
-  Created: String,
+  created: String,
   Assessments: { type: Number, default: 0 },
 });
 
@@ -125,8 +124,7 @@ app.post("/patients", async (req, res) => {
       dateOfBirth: body.dateOfBirth,
       gender: body.gender,
       status: body.status,
-      doctor: body.doctor,
-      Created: new Date().toISOString(),
+      created: body.created || new Date().toISOString(),
       Assessments: body.Assessments || 0,
     });
     const saved = await patient.save();
@@ -148,7 +146,7 @@ app.put("/patients/:id", async (req, res) => {
         dateOfBirth: body.dateOfBirth,
         gender: body.gender,
         status: body.status,
-        doctor: body.doctor,
+        created: body.created,
       },
       { returnDocument: 'after' }
     );

@@ -58,10 +58,6 @@
   grid-template-columns: repeat(9, 1fr);
   align-items: center;
   margin-bottom: 15px;
-  border: 1px solid #bbb;
-  background: #eee;
-  padding: 10px;
-  cursor: pointer;
 }
 
 .row-content {

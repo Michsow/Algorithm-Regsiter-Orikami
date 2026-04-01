@@ -11,7 +11,7 @@ export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("male");
   const [status, setStatus] = useState("active");
-  const [doctor, setDoctor] = useState("");
+  const [created, setCreated] = useState(new Date().toISOString().slice(0, 10));
 
   const handleSubmit = async () => {
     try {
@@ -23,7 +23,7 @@ export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
           dateOfBirth,
           gender,
           status,
-          doctor,
+          created,
         }),
       });
 
@@ -76,11 +76,11 @@ export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
           </div>
 
           <div>
-            <label>Doctor</label>
+            <label>Created</label>
             <input
-              value={doctor}
-              onChange={(e) => setDoctor(e.target.value)}
-              placeholder="Dr. Smith"
+              type="date"
+              value={created}
+              onChange={(e) => setCreated(e.target.value)}
             />
           </div>
         </div>

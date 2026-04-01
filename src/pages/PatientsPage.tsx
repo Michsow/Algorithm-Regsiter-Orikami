@@ -70,13 +70,14 @@ export default function PatientsPage() {
           <span>Status</span>
           <span>Created</span>
           <span>Assessments</span>
+          <span>Actions</span>
         </div>
 
         {/* Filter patients */}
         {(() => {
           const filteredPatients = patients.filter((patient) =>
             patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            patient.doctor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            patient.created.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
             patient.status.toLowerCase().includes(searchTerm.toLowerCase())
           );
 
@@ -91,7 +92,7 @@ export default function PatientsPage() {
               <div>{patient.dateOfBirth}</div>
               <div>{patient.gender}</div>
               <div>{patient.status}</div>
-              <div>{patient.doctor}</div>
+              <div>{patient.created}</div>
 
               <div>
                 <button
