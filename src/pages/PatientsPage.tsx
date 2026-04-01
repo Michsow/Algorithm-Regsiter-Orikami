@@ -5,13 +5,17 @@ import PatientAdd from "../components/PatientAdd";
 import PatientEdit from "../components/PatientEdit";
 import { type Patient } from "../types";
 
+  // Controls which popup is open (add/edit)
+  // Stores list of patients and selected patient for editing
+  // Also handles search term for filtering patients
 export default function PatientsPage() {
   const [popupMode, setPopupMode] = useState<"add" | "edit" | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-
+  
+  // Fetches patients from backend and updates state
   const fetchPatients = () => {
     fetch("http://localhost:5000/patients")
       .then((res) => res.json())

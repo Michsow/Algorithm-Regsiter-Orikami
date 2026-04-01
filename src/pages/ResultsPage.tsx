@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import "./AlgorithmPage.css";
 import type { Result } from "../types";
 
+  // Displays list of results with search and stats
 export default function Results() {
   const [results, setResults] = useState<Result[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  
+  // Fetches results from backend and updates state
   const fetchResults = () => {
     fetch("http://localhost:5000/results")
       .then((res) => res.json())

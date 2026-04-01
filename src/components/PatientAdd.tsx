@@ -1,18 +1,21 @@
 import { useState } from "react";
 import "./Popup.css";
 
+// Props for the add patient popup
 interface PatientAddProps {
   onClose: () => void;
   onSuccess: () => void;
 }
 
 export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
+   // State for form fields
   const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("male");
   const [status, setStatus] = useState("active");
   const [created, setCreated] = useState(new Date().toISOString().slice(0, 10));
 
+  // Sends new patient data to backend
   const handleSubmit = async () => {
     try {
       await fetch("http://localhost:5000/patients", {

@@ -5,6 +5,7 @@ import "./AlgorithmPage.css";
 import AlgorithmAdd from "../components/AlgorithmAdd";
 import AlgorithmEdit from "../components/AlgorithmEdit";
 
+// Type definition for an algorithm object
 interface Algorithm {
   _id?: string;
   name: string;
