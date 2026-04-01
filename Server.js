@@ -20,6 +20,18 @@ const algorithmSchema = new mongoose.Schema({
 
 const Algorithm = mongoose.model("Algorithm", algorithmSchema, "AlgorithmRegister");
 
+const patientSchema = new mongoose.Schema({
+  name: String,
+  dateOfBirth: String,
+  gender: String,
+  status: String,
+  doctor: String,
+  Created: String,
+  Assessments: { type: Number, default: 0 },
+});
+
+const Patient = mongoose.model("Patient", patientSchema, "Patients");
+
 app.get("/algorithms", async (req, res) => {
   const data = await Algorithm.find();
   res.json(data);
@@ -83,6 +95,70 @@ app.put("/algorithms/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Unable to update algorithm" });
+  }
+});
+
+app.get("/patients", async (req, res) => {
+  const data = await Patient.find();
+  res.json(data);
+});
+
+app.get("/patients/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const patient = await Patient.findById(id);
+    if (!patient) {
+      return res.status(404).json({ error: "Patient not found" });
+    }
+    res.json(patient);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to fetch patient" });
+  }
+});
+
+app.post("/patients", async (req, res) => {
+  try {
+    const body = req.body;
+    const patient = new Patient({
+      name: body.name,
+      dateOfBirth: body.dateOfBirth,
+      gender: body.gender,
+      status: body.status,
+      doctor: body.doctor,
+      Created: new Date().toISOString(),
+      Assessments: body.Assessments || 0,
+    });
+    const saved = await patient.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to create patient" });
+  }
+});
+
+app.put("/patients/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const updated = await Patient.findByIdAndUpdate(
+      id,
+      {
+        name: body.name,
+        dateOfBirth: body.dateOfBirth,
+        gender: body.gender,
+        status: body.status,
+        doctor: body.doctor,
+      },
+      { returnDocument: 'after' }
+    );
+    if (!updated) {
+      return res.status(404).json({ error: "Patient not found" });
+    }
+    res.json(updated);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to update patient" });
   }
 });
 

@@ -1,0 +1,100 @@
+.patients-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header */
+.patients-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-btn {
+  background: orange;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Search */
+.search-bar {
+  background: #ddd;
+  padding: 15px;
+  width: 250px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.card {
+  background: #ccc;
+  padding: 40px 10px;
+  text-align: center;
+}
+
+/* Table */
+.table-section {
+  background: #dcdcdc;
+  padding: 15px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+/* Rows */
+.table-row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  align-items: center;
+  margin-bottom: 15px;
+  border: 1px solid #bbb;
+  background: #eee;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.row-content {
+  flex: 1;
+  height: 40px;
+  background: #eee;
+  border: 1px solid #bbb;
+}
+
+.edit-btn {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background: #bbb;
+  border: none;
+  cursor: pointer;
+}
+/* Search */
+.search-container {
+  display: flex;
+  gap: 10px;
+}
+
+.search-container input {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #aaa;
+}
+
+.search-container button {
+  padding: 10px 15px;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+/* Cards */
