@@ -87,7 +87,10 @@ export default function Algorithms() {
             algo.status.toLowerCase().includes(searchTerm.toLowerCase())
           );
           return filteredAlgorithms.map((algo, index) => (
-            <div key={index} className="table-row">
+            <div key={index} className="table-row" onClick={() => {
+              setSelectedAlgorithm(algo);
+              setPopupMode("edit");
+            }}>
               <div>{index + 1}</div>
               <div>{algo.name}</div>
               <div>{algo.purpose}</div>
@@ -99,7 +102,8 @@ export default function Algorithms() {
               <div>
                 <button
                   className="edit-btn"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the row click
                     setSelectedAlgorithm(algo);
                     setPopupMode("edit");
                   }}
