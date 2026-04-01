@@ -46,14 +46,15 @@ export default function PatientsPage() {
       {/* Stats */}
       <div className="stats">
         {[
-          "total patients",
-          "active",
-          "Total Assessments",
-          "Pending",
-        ].map((label, i) => (
+          { label: "total patients", value: patients.length },
+          { label: "active", value: patients.filter(p => p.status.toLowerCase() === "active").length },
+          { label: "Total Assessments", value: 0 },
+          { label: "Pending", value: 0 },
+
+        ].map((stat, i) => (
           <div key={i} className="card">
-            <div className="card-number">--</div>
-            <div className="card-label">{label}</div>
+            <div className="card-number">{stat.value}</div>
+            <div className="card-label">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -93,7 +94,9 @@ export default function PatientsPage() {
               <div>{patient.gender}</div>
               <div>{patient.status}</div>
               <div>{patient.created}</div>
-
+              <div>
+                <span className="placeholder-text">No data</span>
+              </div>
               <div>
                 <button
                   className="edit-btn"

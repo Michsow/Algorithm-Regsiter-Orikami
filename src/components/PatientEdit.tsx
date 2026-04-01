@@ -12,7 +12,7 @@ export default function PatientEdit({ onClose, onSuccess, patient }: PatientEdit
   const [name, setName] = useState(patient.name || "");
   const [dateOfBirth, setDateOfBirth] = useState(patient.dateOfBirth || "");
   const [gender, setGender] = useState(patient.gender || "male");
-  const [status, setStatus] = useState(patient.status || "active");
+  const [status, setStatus] = useState(patient.status || "Pending");
   const [created, setCreated] = useState(patient.created || "");
 
   const handleSubmit = async () => {
@@ -72,8 +72,8 @@ export default function PatientEdit({ onClose, onSuccess, patient }: PatientEdit
           <div>
             <label>Status</label>
             <select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
             </select>
           </div>
 

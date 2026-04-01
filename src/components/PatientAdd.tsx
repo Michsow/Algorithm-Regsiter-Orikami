@@ -70,8 +70,8 @@ export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
           <div>
             <label>Status</label>
             <select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
             </select>
           </div>
 

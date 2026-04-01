@@ -49,17 +49,17 @@ export default function Algorithms() {
         <button>Search</button>
       </div>
 
-      {/* Stats */}
+           {/* Stats */}
       <div className="stats">
         {[
-          "algorithm total amount",
-          "algorithm active amount",
-          "public accessible algorithms",
-          "algorithms categories",
-        ].map((label, i) => (
+          { label: "algorithm total amount", value: algorithms.length },
+          { label: "algorithm active amount", value: algorithms.filter(a => a.status?.toLowerCase() === "active").length },
+          { label: "public accessible algorithms", value: algorithms.filter(a => a.status?.toLowerCase() === "public").length },
+          { label: "algorithms categories", value: 0 },
+        ].map((stat, i) => (
           <div key={i} className="card">
-            <div className="card-number">--</div>
-            <div className="card-label">{label}</div>
+            <div className="card-number">{stat.value}</div>
+            <div className="card-label">{stat.label}</div>
           </div>
         ))}
       </div>
