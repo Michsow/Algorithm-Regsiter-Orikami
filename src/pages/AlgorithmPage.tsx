@@ -4,10 +4,19 @@ import "./AlgorithmPage.css";
 import AlgorithmAdd from "../components/AlgorithmAdd";
 import AlgorithmEdit from "../components/AlgorithmEdit";
 
+interface Algorithm {
+  name: string;
+  purpose: string;
+  version: string;
+  status: string;
+  lastUpdated: string;
+  owner: string;
+  runsThisMonth: number;
+}
 
 export default function Algorithms() {
   const [popupMode, setPopupMode] = useState<"add" | "edit" | null>(null);
-  const [algorithms, setAlgorithms] = useState<any[]>([]);
+  const [algorithms, setAlgorithms] = useState<Algorithm[]>([]);
 
     useEffect(() => {
       fetch("http://localhost:5000/algorithms")
@@ -52,14 +61,14 @@ export default function Algorithms() {
 
         <div className="table-header">
           <span>ID</span>
-          <span>name</span>
-          <span>purpose</span>
-          <span>version</span>
-          <span>status</span>
-          <span>last updated</span>
-          <span>owner</span>
-          <span>runs</span>
-          <span></span>
+          <span>Name</span>
+          <span>Purpose</span>
+          <span>Version</span>
+          <span>Status</span>
+          <span>Last Updated</span>
+          <span>Owner</span>
+          <span>Runs</span>
+          <span>Actions</span>
         </div>
 
         {/* TODO: Replace hardcoded [1, 2] with dynamic data when available */}
@@ -73,25 +82,26 @@ export default function Algorithms() {
               <div>{algo.lastUpdated}</div>
               <div>{algo.owner}</div>
               <div>{algo.runsThisMonth}</div>
-
-              <button
-                className="edit-btn"
-                onClick={() => setPopupMode("edit")}
-              >
-                edit
-              </button>
+              <div>
+                <button
+                  className="edit-btn"
+                  onClick={() => setPopupMode("edit")}
+                >
+                  edit
+                </button>
+              </div>
             </div>
           ))}
       </div>
 
-      {/* Popup */}
-      {popupMode === "add" && (
-  <AlgorithmAdd onClose={() => setPopupMode(null)} />
-)}
+          {/* Popup */}
+          {popupMode === "add" && (
+      <AlgorithmAdd onClose={() => setPopupMode(null)} />
+    )}
 
-{popupMode === "edit" && (
-  <AlgorithmEdit onClose={() => setPopupMode(null)} />
-)}
+    {popupMode === "edit" && (
+      <AlgorithmEdit onClose={() => setPopupMode(null)} />
+    )}
     </div>
   );
 }

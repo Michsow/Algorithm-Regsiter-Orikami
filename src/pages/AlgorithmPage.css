@@ -54,7 +54,8 @@
 
 /* Rows */
 .table-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
   align-items: center;
   margin-bottom: 15px;
 }
