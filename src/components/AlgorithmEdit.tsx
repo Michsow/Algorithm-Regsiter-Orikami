@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Popup.css";
 
+// Type definition for an algorithm object
 interface Algorithm {
   _id?: string;
   name: string;
@@ -12,6 +13,7 @@ interface Algorithm {
   runsThisMonth: number;
 }
 
+// Props for the edit popup component
 interface EditAlgorithmPopupProps {
   onClose: () => void;
   onSuccess: () => void;
@@ -19,6 +21,7 @@ interface EditAlgorithmPopupProps {
 }
 
 export default function EditAlgorithmPopup({ onClose, onSuccess, algorithm }: EditAlgorithmPopupProps) {
+  // State for form fields (pre-filled with existing algorithm data)
   const [name, setName] = useState(algorithm.name || "");
   const [lastUpdated, setLastUpdated] = useState(algorithm.lastUpdated || "");
   const [purpose, setPurpose] = useState(algorithm.purpose || "");
@@ -27,6 +30,7 @@ export default function EditAlgorithmPopup({ onClose, onSuccess, algorithm }: Ed
   const [status, setStatus] = useState(algorithm.status || "active");
   const [changeOwner, setChangeOwner] = useState(algorithm.owner || "");
 
+  // Sends updated data to backend
   const handleSubmit = async () => {
     try {
       await fetch(`http://localhost:5000/algorithms/${algorithm._id}`, {

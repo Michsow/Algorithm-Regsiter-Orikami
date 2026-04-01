@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Popup.css";
 import type { Patient } from "../types";
 
+// Props for the edit patient popup
 interface PatientEditProps {
   onClose: () => void;
   onSuccess: () => void;
@@ -9,12 +10,14 @@ interface PatientEditProps {
 }
 
 export default function PatientEdit({ onClose, onSuccess, patient }: PatientEditProps) {
+  // State for form fields (pre-filled with existing patient data)
   const [name, setName] = useState(patient.name || "");
   const [dateOfBirth, setDateOfBirth] = useState(patient.dateOfBirth || "");
   const [gender, setGender] = useState(patient.gender || "male");
-  const [status, setStatus] = useState(patient.status || "active");
-  const [doctor, setDoctor] = useState(patient.doctor || "");
+  const [status, setStatus] = useState(patient.status || "Pending");
+  const [created, setCreated] = useState(patient.created || "");
 
+    // Sends updated patient data to backend
   const handleSubmit = async () => {
     try {
       await fetch(`http://localhost:5000/patients/${patient._id}`, {
@@ -25,7 +28,7 @@ export default function PatientEdit({ onClose, onSuccess, patient }: PatientEdit
           dateOfBirth,
           gender,
           status,
-          doctor,
+          created,
         }),
       });
 
@@ -72,17 +75,17 @@ export default function PatientEdit({ onClose, onSuccess, patient }: PatientEdit
           <div>
             <label>Status</label>
             <select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
             </select>
           </div>
 
           <div>
-            <label>Doctor</label>
+            <label>Created</label>
             <input
-              value={doctor}
-              onChange={(e) => setDoctor(e.target.value)}
-              placeholder="Dr. Smith"
+              type="date"
+              value={created}
+              onChange={(e) => setCreated(e.target.value)}
             />
           </div>
         </div>

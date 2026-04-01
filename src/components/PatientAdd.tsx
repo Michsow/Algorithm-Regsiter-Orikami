@@ -1,18 +1,21 @@
 import { useState } from "react";
 import "./Popup.css";
 
+// Props for the add patient popup
 interface PatientAddProps {
   onClose: () => void;
   onSuccess: () => void;
 }
 
 export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
+   // State for form fields
   const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("male");
   const [status, setStatus] = useState("active");
-  const [doctor, setDoctor] = useState("");
+  const [created, setCreated] = useState(new Date().toISOString().slice(0, 10));
 
+  // Sends new patient data to backend
   const handleSubmit = async () => {
     try {
       await fetch("http://localhost:5000/patients", {
@@ -23,7 +26,7 @@ export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
           dateOfBirth,
           gender,
           status,
-          doctor,
+          created,
         }),
       });
 
@@ -70,17 +73,17 @@ export default function PatientAdd({ onClose, onSuccess }: PatientAddProps) {
           <div>
             <label>Status</label>
             <select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="active">active</option>
-              <option value="inactive">inactive</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
             </select>
           </div>
 
           <div>
-            <label>Doctor</label>
+            <label>Created</label>
             <input
-              value={doctor}
-              onChange={(e) => setDoctor(e.target.value)}
-              placeholder="Dr. Smith"
+              type="date"
+              value={created}
+              onChange={(e) => setCreated(e.target.value)}
             />
           </div>
         </div>

@@ -13,15 +13,16 @@
 
 /* Top bar */
 .topbar {
-  background: #bfbfbf;
+  background: var(--secondary);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 5px 20px;
+  border-bottom: 1px solid;
 }
 
 .logo {
-  background: #ddd;
+  background: var(--primary);
   padding: 10px;
 }
 
@@ -41,11 +42,12 @@
 /* Sidebar */
 .sidebar {
   width: 120px;
-  background: #c9c9c9;
+  background: var(--secondary);
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 10px;
+  border-right: 1px solid;
 }
 
 .sidebar a {

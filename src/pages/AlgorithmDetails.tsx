@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./AlgorithmPage.css"; // Reuse styles or create specific ones
 
+// Type definition for an algorithm object
 interface Algorithm {
   _id?: string;
   name: string;

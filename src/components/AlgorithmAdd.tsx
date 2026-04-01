@@ -1,12 +1,14 @@
 import { useState } from "react";
 import "./Popup.css";
 
+// Props for the edit popup component
 interface AddAlgorithmPopupProps {
   onClose: () => void;
   onSuccess: () => void;
 }
 
 export default function AddAlgorithmPopup({ onClose, onSuccess }: AddAlgorithmPopupProps) {
+   // State for form fields (pre-filled with existing algorithm data)
   const [name, setName] = useState("");
   const [lastUpdated, setLastUpdated] = useState("");
   const [purpose, setPurpose] = useState("");
@@ -15,6 +17,7 @@ export default function AddAlgorithmPopup({ onClose, onSuccess }: AddAlgorithmPo
   const [runsThisMonth, setRunsThisMonth] = useState(0);
   const [status, setStatus] = useState("active");
 
+   // Sends updated data to backend
   const handleSubmit = async () => {
     try {
       await fetch("http://localhost:5000/algorithms", {

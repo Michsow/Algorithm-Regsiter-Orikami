@@ -4,7 +4,17 @@ export interface Patient {
   dateOfBirth: string;
   gender: string;
   status: string;
-  doctor: string;
-  Created: string;
-  Assessments?: number;
+  created: string;
+  assessments?: number;
+}
+
+export interface Result {
+  _id?: string;
+  Patients_ID: string;
+  Created_date: string;
+  Algorithm_ID: string;
+  Assessor: string;
+  Assessment_Status: string;
+  Risk_Level: string;
+  Probability: number | string;
 }

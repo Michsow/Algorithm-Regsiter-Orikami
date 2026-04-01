@@ -12,7 +12,7 @@
 }
 
 .add-btn {
-  background: orange;
+  background: var(--primary);
   border: none;
   padding: 10px 15px;
   color: white;
@@ -41,7 +41,7 @@
 
 /* Table */
 .table-section {
-  background: #dcdcdc;
+  background: var(--secondary);
   padding: 15px;
 }
 
@@ -58,10 +58,6 @@
   grid-template-columns: repeat(9, 1fr);
   align-items: center;
   margin-bottom: 15px;
-  border: 1px solid #bbb;
-  background: #eee;
-  padding: 10px;
-  cursor: pointer;
 }
 
 .row-content {

@@ -5,13 +5,17 @@ import PatientAdd from "../components/PatientAdd";
 import PatientEdit from "../components/PatientEdit";
 import { type Patient } from "../types";
 
+  // Controls which popup is open (add/edit)
+  // Stores list of patients and selected patient for editing
+  // Also handles search term for filtering patients
 export default function PatientsPage() {
   const [popupMode, setPopupMode] = useState<"add" | "edit" | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-
+  
+  // Fetches patients from backend and updates state
   const fetchPatients = () => {
     fetch("http://localhost:5000/patients")
       .then((res) => res.json())
@@ -46,14 +50,15 @@ export default function PatientsPage() {
       {/* Stats */}
       <div className="stats">
         {[
-          "total patients",
-          "active",
-          "Total Assessments",
-          "Pending",
-        ].map((label, i) => (
+          { label: "total patients", value: patients.length },
+          { label: "active", value: patients.filter(p => p.status.toLowerCase() === "active").length },
+          { label: "Total Assessments", value: 0 },
+          { label: "Pending", value: 0 },
+
+        ].map((stat, i) => (
           <div key={i} className="card">
-            <div className="card-number">--</div>
-            <div className="card-label">{label}</div>
+            <div className="card-number">{stat.value}</div>
+            <div className="card-label">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -70,13 +75,14 @@ export default function PatientsPage() {
           <span>Status</span>
           <span>Created</span>
           <span>Assessments</span>
+          <span>Actions</span>
         </div>
 
         {/* Filter patients */}
         {(() => {
           const filteredPatients = patients.filter((patient) =>
             patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            patient.doctor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            patient.created.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
             patient.status.toLowerCase().includes(searchTerm.toLowerCase())
           );
 
@@ -91,8 +97,10 @@ export default function PatientsPage() {
               <div>{patient.dateOfBirth}</div>
               <div>{patient.gender}</div>
               <div>{patient.status}</div>
-              <div>{patient.doctor}</div>
-
+              <div>{patient.created}</div>
+              <div>
+                <span className="placeholder-text">No data</span>
+              </div>
               <div>
                 <button
                   className="edit-btn"

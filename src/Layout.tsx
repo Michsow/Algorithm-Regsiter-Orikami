@@ -13,9 +13,9 @@ export default function Layout() {
       <div className="body">
         {/* Sidebar */}
         <aside className="sidebar">
-          <Link to="/">algorithms</Link>
-          <Link to="/patients">patients</Link>
-          <Link to="/results">results</Link>
+          <Link to="/">Algorithms</Link>
+          <Link to="/patients">Patients</Link>
+          <Link to="/results">Results</Link>
         </aside>
 
         {/* Page content */}

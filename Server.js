@@ -25,12 +25,23 @@ const patientSchema = new mongoose.Schema({
   dateOfBirth: String,
   gender: String,
   status: String,
-  doctor: String,
-  Created: String,
+  created: String,
   Assessments: { type: Number, default: 0 },
 });
 
 const Patient = mongoose.model("Patient", patientSchema, "Patients");
+
+const resultSchema = new mongoose.Schema({
+  Patients_ID: String,
+  Created_date: String,
+  Algorithm_ID: String,
+  Assessor: String,
+  Assessment_Status: String,
+  Risk_Level: String,
+  Probability: Number,
+});
+
+const Result = mongoose.model("Result", resultSchema, "Results");
 
 app.get("/algorithms", async (req, res) => {
   const data = await Algorithm.find();
@@ -125,8 +136,7 @@ app.post("/patients", async (req, res) => {
       dateOfBirth: body.dateOfBirth,
       gender: body.gender,
       status: body.status,
-      doctor: body.doctor,
-      Created: new Date().toISOString(),
+      created: body.created || new Date().toISOString(),
       Assessments: body.Assessments || 0,
     });
     const saved = await patient.save();
@@ -148,7 +158,7 @@ app.put("/patients/:id", async (req, res) => {
         dateOfBirth: body.dateOfBirth,
         gender: body.gender,
         status: body.status,
-        doctor: body.doctor,
+        created: body.created,
       },
       { returnDocument: 'after' }
     );
@@ -162,4 +172,44 @@ app.put("/patients/:id", async (req, res) => {
   }
 });
 
+app.get("/results", async (req, res) => {
+  const data = await Result.find();
+  res.json(data);
+});
+
+app.get("/results/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Result.findById(id);
+    if (!result) {
+      return res.status(404).json({ error: "Result not found" });
+    }
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to fetch result" });
+  }
+});
+
+app.post("/results", async (req, res) => {
+  try {
+    const body = req.body;
+    const result = new Result({
+      Patients_ID: body.Patients_ID,
+      Created_date: body.Created_date || new Date().toISOString(),
+      Algorithm_ID: body.Algorithm_ID,
+      Assessor: body.Assessor,
+      Assessment_Status: body.Assessment_Status,
+      Risk_Level: body.Risk_Level,
+      Probability: body.Probability || 0,
+    });
+    const saved = await result.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to create result" });
+  }
+});
+
 app.listen(5000, () => console.log("Server running on port 5000"));
+
