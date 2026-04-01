@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AlgorithmPage.css";
 import AlgorithmAdd from "../components/AlgorithmAdd";
 import AlgorithmEdit from "../components/AlgorithmEdit";
@@ -20,6 +21,7 @@ export default function Algorithms() {
   const [algorithms, setAlgorithms] = useState<Algorithm[]>([]);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<Algorithm | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const fetchAlgorithms = () => {
     fetch("http://localhost:5000/algorithms")
@@ -87,10 +89,7 @@ export default function Algorithms() {
             algo.status.toLowerCase().includes(searchTerm.toLowerCase())
           );
           return filteredAlgorithms.map((algo, index) => (
-            <div key={index} className="table-row" onClick={() => {
-              setSelectedAlgorithm(algo);
-              setPopupMode("edit");
-            }}>
+            <div key={index} className="table-row" onClick={() => navigate(`/algorithm/${algo._id}`)}>
               <div>{index + 1}</div>
               <div>{algo.name}</div>
               <div>{algo.purpose}</div>

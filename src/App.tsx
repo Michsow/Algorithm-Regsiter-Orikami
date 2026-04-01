@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 
 import Algorithms from "./pages/AlgorithmPage";
+import AlgorithmDetails from "./pages/AlgorithmDetails";
 import Patients from "./pages/PatientsPage";
 import Results from "./pages/ResultsPage";
 
@@ -11,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Algorithms />} />
+          <Route path="algorithm/:id" element={<AlgorithmDetails />} />
           <Route path="patients" element={<Patients />} />
           <Route path="results" element={<Results />} />
         </Route>

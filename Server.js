@@ -25,6 +25,20 @@ app.get("/algorithms", async (req, res) => {
   res.json(data);
 });
 
+app.get("/algorithms/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const algorithm = await Algorithm.findById(id);
+    if (!algorithm) {
+      return res.status(404).json({ error: "Algorithm not found" });
+    }
+    res.json(algorithm);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Unable to fetch algorithm" });
+  }
+});
+
 app.post("/algorithms", async (req, res) => {
   try {
     const body = req.body;
