@@ -19,6 +19,7 @@ export default function Algorithms() {
   const [popupMode, setPopupMode] = useState<"add" | "edit" | null>(null);
   const [algorithms, setAlgorithms] = useState<Algorithm[]>([]);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<Algorithm | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchAlgorithms = () => {
     fetch("http://localhost:5000/algorithms")
@@ -42,7 +43,7 @@ export default function Algorithms() {
 
       {/* Search */}
       <div className="search-container">
-        <input type="text" placeholder="Search..." />
+        <input type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <button>Search</button>
       </div>
 
@@ -77,8 +78,15 @@ export default function Algorithms() {
           <span>Actions</span>
         </div>
 
-        {/* TODO: Replace hardcoded [1, 2] with dynamic data when available */}
-        {algorithms.map((algo, index) => (
+        {/* Filter algorithms based on search term */}
+        {(() => {
+          const filteredAlgorithms = algorithms.filter(algo =>
+            algo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            algo.purpose.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            algo.owner.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            algo.status.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          return filteredAlgorithms.map((algo, index) => (
             <div key={index} className="table-row">
               <div>{index + 1}</div>
               <div>{algo.name}</div>
@@ -100,7 +108,8 @@ export default function Algorithms() {
                 </button>
               </div>
             </div>
-          ))}
+          ));
+        })()}
       </div>
 
           {/* Popup */}
