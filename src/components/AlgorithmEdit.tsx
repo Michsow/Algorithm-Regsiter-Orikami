@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Popup.css";
 
 interface Algorithm {
@@ -22,25 +22,13 @@ export default function EditAlgorithmPopup({ onClose, onSuccess, algorithm }: Ed
   const [name, setName] = useState(algorithm.name || "");
   const [lastUpdated, setLastUpdated] = useState(algorithm.lastUpdated || "");
   const [purpose, setPurpose] = useState(algorithm.purpose || "");
-  const [owner, setOwner] = useState(algorithm.owner || "");
   const [version, setVersion] = useState(algorithm.version || "");
   const [runsThisMonth, setRunsThisMonth] = useState(algorithm.runsThisMonth || 0);
   const [status, setStatus] = useState(algorithm.status || "active");
-  const [changeOwner, setChangeOwner] = useState("");
-
-  useEffect(() => {
-    setName(algorithm.name || "");
-    setLastUpdated(algorithm.lastUpdated || "");
-    setPurpose(algorithm.purpose || "");
-    setOwner(algorithm.owner || "");
-    setVersion(algorithm.version || "");
-    setRunsThisMonth(algorithm.runsThisMonth || 0);
-    setStatus(algorithm.status || "active");
-  }, [algorithm]);
+  const [changeOwner, setChangeOwner] = useState(algorithm.owner || "");
 
   const handleSubmit = async () => {
     try {
-      const finalOwner = changeOwner.trim() || owner;
       await fetch(`http://localhost:5000/algorithms/${algorithm._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -48,7 +36,7 @@ export default function EditAlgorithmPopup({ onClose, onSuccess, algorithm }: Ed
           name,
           lastUpdated,
           purpose,
-          owner: finalOwner,
+          owner: changeOwner,
           version,
           runsThisMonth,
           status,
@@ -80,11 +68,6 @@ export default function EditAlgorithmPopup({ onClose, onSuccess, algorithm }: Ed
           <div>
             <label>Purpose</label>
             <input value={purpose} onChange={(e) => setPurpose(e.target.value)} placeholder="text" />
-          </div>
-
-          <div>
-            <label>owner</label>
-            <input value={owner} onChange={(e) => setOwner(e.target.value)} placeholder="Value" />
           </div>
 
           <div>
