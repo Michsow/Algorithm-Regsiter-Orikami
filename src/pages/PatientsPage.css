@@ -11,13 +11,7 @@
   align-items: center;
 }
 
-.add-btn {
-  background: orange;
-  border: none;
-  padding: 10px 15px;
-  color: white;
-  cursor: pointer;
-}
+
 
 /* Search */
 .search-bar {
@@ -39,11 +33,6 @@
   text-align: center;
 }
 
-/* Table */
-.table-section {
-  background: #dcdcdc;
-  padding: 15px;
-}
 
 .table-header {
   display: grid;
